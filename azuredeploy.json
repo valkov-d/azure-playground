@@ -74,7 +74,7 @@
             "properties": {
                 "mode": "Incremental",
                 "templateLink": {
-                    "relativePath": "assets/privateDNS.json"
+                    "uri": "https://raw.githubusercontent.com/valkov-d/azure-playground/main/assets/privateDNS.json?token=GHSAT0AAAAAACFU4ROX56XOX46OG7WI3OSIZGJKMHQ"
                 },
                 "parameters": {
                     "dnsZoneName": {
