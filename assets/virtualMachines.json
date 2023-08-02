@@ -2,17 +2,19 @@
     "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
     "contentVersion": "1.0.0.0",
     "parameters": {
-
+        "numberOfVMs": {
+            "type": "int",
+            "defaultValue": 3
+        }
     },
     "variables": {
-        "numberOfVMs": 3,
         "publicIPAddressPrefix": "pip-vm-"
     },
     "resources": [
         {
             "copy": {
                 "name": "ipcopy",
-                "count": "[length(range(0, variables('numberOfVMs')))]"
+                "count": "[length(range(0, parameters('numberOfVMs')))]"
             },
             "type": "Microsoft.Network/publicIPAddresses",
             "apiVersion": "2020-05-01",
