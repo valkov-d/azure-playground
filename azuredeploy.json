@@ -68,7 +68,7 @@
             }
         },
         {
-            "name": "linkedTemplate",
+            "name": "dns",
             "type": "Microsoft.Resources/deployments",
             "apiVersion": "2022-09-01",
             "properties": {
@@ -90,7 +90,7 @@
             ]
         },
         {
-            "name": "linkedTemplate1",
+            "name": "virtualMachines",
             "type": "Microsoft.Resources/deployments",
             "apiVersion": "2022-09-01",
             "properties": {
