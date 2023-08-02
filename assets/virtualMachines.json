@@ -8,7 +8,7 @@
         }
     },
     "variables": {
-        "publicIPAddressPrefix": "pip-vm-"
+        "publicIPAddressPrefix": "pip-vm"
     },
     "resources": [
         {
