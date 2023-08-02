@@ -88,6 +88,17 @@
             "dependsOn": [
                 "[resourceId('Microsoft.Network/virtualnetworks', parameters('vnetName'))]"
             ]
+        },
+        {
+            "name": "linkedTemplate",
+            "type": "Microsoft.Resources/deployments",
+            "apiVersion": "2022-09-01",
+            "properties": {
+                "mode": "Incremental",
+                "templateLink": {
+                    "relativePath": "assets/virtualMachines.json"
+                }
+            }
         }
     ]
 }
