@@ -5,7 +5,7 @@
 
     },
     "variables": {
-        "numberOfVMs": "3",
+        "numberOfVMs": 3,
         "publicIPAddressPrefix": "pip-vm-"
     },
     "resources": [
