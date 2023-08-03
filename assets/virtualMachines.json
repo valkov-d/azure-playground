@@ -5,10 +5,17 @@
         "numberOfVMs": {
             "type": "int",
             "defaultValue": 3
+        },
+        "vnetName": {
+            "type": "string"
+        },
+        "subnetName": {
+            "type": "string"
         }
     },
     "variables": {
-        "publicIPAddressPrefix": "pip-vm"
+        "publicIPAddressNamePrefix": "pip-vm",
+        "networkInterfaceNamePrefix": "nic-vm"
     },
     "resources": [
         {
@@ -18,13 +25,42 @@
             },
             "type": "Microsoft.Network/publicIPAddresses",
             "apiVersion": "2020-05-01",
-            "name": "[format('{0}-{1:D2}', variables('publicIPAddressPrefix'), add(copyIndex(), 1))]",
+            "name": "[format('{0}-{1:D2}', variables('publicIPAddressNamePrefix'), add(copyIndex(), 1))]",
             "location": "[resourceGroup().location]",
             "properties": {
                 "publicIPAllocationMethod": "Dynamic"
             },
             "sku": {
                 "name": "Basic"
+            }
+        },
+        {
+            "copy": {
+                "name": "createVMNetworkInterfaces",
+                "count": "[length(range(0, parameters('numberOfVMs')))]"
+            },
+            "type": "Microsoft.Network/networkInterfaces",
+            "name": "[format('{0}-{1:D2}', variables('networkInterfaceNamePrefix'), add(copyIndex(), 1))]",
+            "location": "[resourceGroup().location]",
+            "dependsOn": [
+                "[resourceId('Microsoft.Network/virtualNetowrks', parameters('vnetName'))]",
+                "[resourceId('Microsoft.Network/publicIPAddresses', format('{0}-{1:D2}', variables('publicIPAddressNamePrefix'), add(copyIndex(), 1)))]"
+            ],
+            "properties": {
+                "ipConfigurations": [
+                    {
+                        "name": "[format('ipconfig{0}', add(copyIndex(), 1))]",
+                        "properties": {
+                            "privateIPAllocationMethod": "Dynamic",
+                            "publicIPAddress": {
+                                "id": "[resourceId('Microsoft.Network/publicIPAddresses', format('{0}-{1:D2}', variables('publicIPAddressNamePrefix'), add(copyIndex(), 1)))]"
+                            },
+                            "subnet": {
+                                "id": "[resourceId('Microsoft.Network/virtualNetworks/subnets', parameters('vnetName'), parameters('subnetName'))]"
+                            }
+                        }
+                    }
+                ]
             }
         }
     ]
