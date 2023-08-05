@@ -44,7 +44,6 @@
             "name": "[format('{0}-{1,3:D3}', variables('networkInterfaceNamePrefix'), add(copyIndex(), 1))]",
             "location": "[resourceGroup().location]",
             "dependsOn": [
-                "[resourceId('Microsoft.Network/virtualNetowrks', parameters('vnetName'))]",
                 "[resourceId('Microsoft.Network/publicIPAddresses', format('{0}-{1:D2}', variables('publicIPAddressNamePrefix'), add(copyIndex(), 1)))]"
             ],
             "properties": {
